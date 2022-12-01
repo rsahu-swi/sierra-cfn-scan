@@ -1,6 +1,6 @@
-name: 'cfn-security'
+name: 'sierra-cfn-scan'
 description: 'CloudFormation Static Code Analysis Tool Suite'
-author: grolston
+author: rsahu
 inputs:
   cloudformation_directory:
     description: 'directory within git repo to scan cloudformation templates'
