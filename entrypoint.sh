@@ -38,7 +38,7 @@ case $INPUT_SCANNER in
     echo -n "...scanning with all tools"
     sh -c "cfn-lint ${INPUT_CLOUDFORMATION_DIRECTORY}* -f sarif > cfn_lint.sarif"
     sh -c "cfn_nag_scan --input-path ${INPUT_CLOUDFORMATION_DIRECTORY} --output-format sarif "
-    sh -c "checkov -d ${INPUT_CLOUDFORMATION_DIRECTORY} -o sarif --output-file-path checkov.sarif"
+    sh -c "checkov -d ${INPUT_CLOUDFORMATION_DIRECTORY} -o sarif --output-file-path checkov"
     sh -c "ls -altr"
     sh -c "pwd"
     ;;
