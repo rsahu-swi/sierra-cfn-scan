@@ -31,7 +31,7 @@ RUN curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/sc
     chmod 700 get_kustomize.sh; \
     ./get_kustomize.sh; mv /kustomize /usr/bin/kustomize; \
     rm ./get_kustomize.sh; 
-RUN apt install -y apt-transport-https gnupg2
+RUN apt install -y apt-transport-https gnupg2 procps
 RUN curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
 RUN source /etc/profile.d/rvm.sh
