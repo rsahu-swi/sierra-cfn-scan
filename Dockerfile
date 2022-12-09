@@ -51,10 +51,6 @@ RUN pip install pydot
 
 RUN gem install cfn-nag --version "$version"
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-
-
-
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
