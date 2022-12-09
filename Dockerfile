@@ -19,16 +19,16 @@ FROM python:3.8-slim
 ENV RUN_IN_DOCKER=True
 
 RUN set -eux; \
-    apt update; \
-    apt -y --no-install-recommends upgrade; \
-    apt install -y --no-install-recommends \
+    apt-get update; \
+    apt-get -y --no-install-recommends upgrade; \
+    apt-get install -y --no-install-recommends \
             ca-certificates \
             git \
             curl \
             openssh-client \
-    ; 
-    
-RUN curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3; \
+    ; \
+    \
+    curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3; \
     chmod 700 get_helm.sh; \
     VERIFY_CHECKSUM=true ./get_helm.sh; \
     rm ./get_helm.sh; \
@@ -38,8 +38,8 @@ RUN curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/sc
     ./get_kustomize.sh; mv /kustomize /usr/bin/kustomize; \
     rm ./get_kustomize.sh; \
     \
-    apt remove -y curl; \
-    apt purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    apt-get remove -y curl; \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir -U checkov
