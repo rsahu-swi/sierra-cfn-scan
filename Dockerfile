@@ -34,11 +34,11 @@ RUN curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/sc
     chmod 700 get_kustomize.sh; \
     ./get_kustomize.sh; mv /kustomize /usr/bin/kustomize; \
     rm ./get_kustomize.sh; 
-RUN apt install -y apt-transport-https gnupg2
+RUN apt install -y apt-transport-https gnupg2 python3-pip
 RUN curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
 RUN source /usr/local/rvm/scripts/rvm
-RUN python3 -m pip install --upgrade pip
+# RUN python3 -m pip install --upgrade pip
     # \
     # apt remove -y curl; \
     # apt purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
