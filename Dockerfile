@@ -23,6 +23,7 @@ RUN set -eux; \
     apt -y --no-install-recommends upgrade; \
     apt install -y --no-install-recommends \
             ca-certificates \
+            git \
             curl \
             openssh-client \
     ; 
