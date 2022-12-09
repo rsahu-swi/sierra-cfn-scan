@@ -36,8 +36,7 @@ case $INPUT_SCANNER in
   "all")
     echo -n "...scanning with all tools"
     sh -c "cfn-lint ${INPUT_CLOUDFORMATION_DIRECTORY}* -f sarif > cfn_lint.sarif"
-    sh -c "cfn_nag_scan --input-path ${INPUT_CLOUDFORMATION_DIRECTORY} --output-format sarif "
-    sh -c "mv results.sarif cfn_nag.sarif"
+    sh -c "cfn_nag_scan --input-path ${INPUT_CLOUDFORMATION_DIRECTORY} --output-format sarif > cfn_nag.sarif"
     sh -c "checkov -d ${INPUT_CLOUDFORMATION_DIRECTORY} -o sarif"
     sh -c "mv results.sarif cfn_checkov.sarif"
     ;;
