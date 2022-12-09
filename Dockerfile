@@ -38,7 +38,7 @@ RUN apt install -y apt-transport-https gnupg2
 RUN curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
 RUN source /usr/local/rvm/scripts/rvm
-RUN python -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
     # \
     # apt remove -y curl; \
     # apt purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
