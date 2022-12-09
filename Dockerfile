@@ -22,6 +22,7 @@ RUN set -eux; \
             ca-certificates \
             git \
             curl \
+            python3 \
             openssh-client \
     ;  
 RUN curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3; \
