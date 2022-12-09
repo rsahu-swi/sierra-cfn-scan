@@ -9,6 +9,8 @@
 ARG version=''
 
 FROM ubuntu:20.04
+SHELL ["/bin/bash", "-c"]
+
 # FROM ruby:2.7-alpine
 
 ENV RUN_IN_DOCKER=True
