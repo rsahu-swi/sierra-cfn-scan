@@ -10,7 +10,6 @@ if [ ! -d "$INPUT_CLOUDFORMATION_DIRECTORY" ]; then
   exit 1
 fi
 
-
 if [ -z "$INPUT_SCANNER" ]; then
   echo "environment variable SCANNER is not set. Please use 'cfn-lint', 'cfn-nag', 'checkov', or 'all' Quitting."
   exit 1
@@ -38,9 +37,9 @@ case $INPUT_SCANNER in
     echo -n "...scanning with all tools"
     sh -c "cfn-lint ${INPUT_CLOUDFORMATION_DIRECTORY}* -f sarif > cfn_lint.sarif"
     sh -c "cfn_nag_scan --input-path ${INPUT_CLOUDFORMATION_DIRECTORY} --output-format sarif "
-    sh -c "checkov -d ${INPUT_CLOUDFORMATION_DIRECTORY} -o sarif --output-file-path checkov"
-    sh -c "ls -altr"
-    sh -c "pwd"
+    sh -c "mv results.sarif cfn_nag.sarif"
+    sh -c "checkov -d ${INPUT_CLOUDFORMATION_DIRECTORY} -o sarif"
+    sh -c "mv results.sarif cfn_checkov.sarif"
     ;;
 
   *)
