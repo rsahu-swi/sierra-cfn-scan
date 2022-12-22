@@ -13,7 +13,7 @@ RUN groupadd -r cfn && useradd --no-log-init -r -g cfn cfn
 USER cfn
 WORKDIR /home/cfn
 
-RUN pip3 install --no-cache-dir -U checkov cfn-lint requests --user
+RUN pip3 install --no-cache-dir -U checkov cfn-lint requests
 
 ENV PATH="$PATH:/home/cfn/.local/bin"
 
