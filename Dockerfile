@@ -21,6 +21,8 @@ RUN whoami
 RUN chmod 777 -R /home/cfn
 ENV PATH="$PATH:/home/cfn/.local/bin"
 
+USER root
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /usr/local/entrypoint.sh
 RUN whoami
