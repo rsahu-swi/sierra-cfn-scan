@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN apt update && apt-get install -y  --no-install-recommends \
+RUN apt-get update && apt-get install -y  --no-install-recommends \
         python3 \
         python3-pip \
         ruby \
