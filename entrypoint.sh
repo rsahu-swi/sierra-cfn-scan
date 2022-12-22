@@ -1,5 +1,7 @@
 #!/bin/sh
 
+`whoami`
+
 if [ -z "$INPUT_CLOUDFORMATION_DIRECTORY" ]; then
   echo "Environment variable CLOUDFORMATION_DIRECTORY is not set. Quitting."
   exit 1
