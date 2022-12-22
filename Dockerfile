@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y  --no-install-recommends \
 
 # Creating user with name "cfn"
 RUN groupadd -r cfn && useradd --no-log-init -r -g cfn cfn
-RUN mkdir -p /home/cfn && mkdir -p /home/cfn/.local/ && mkdir -p /home/cfn/.local/bin && chown -R /home/cfn 
+
+RUN mkdir -p /home/cfn && mkdir -p /home/cfn/.local/ && mkdir -p /home/cfn/.local/bin && chown -R cfn /home/cfn 
 ENV PATH="$PATH:/home/cfn/.local/bin"
 
 USER cfn
