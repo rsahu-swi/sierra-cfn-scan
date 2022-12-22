@@ -9,12 +9,13 @@ RUN apt-get update && apt-get install -y  --no-install-recommends \
 
 # Creating user with name "cfn"
 RUN groupadd -r cfn && useradd --no-log-init -r -g cfn cfn
-RUN mkdir -p /home/cfn && mkdir -p /home/cfn/.local/ && mkdir -p /home/cfn/.local/bin
+RUN mkdir -p /home/cfn && mkdir -p /home/cfn/.local/ && mkdir -p /home/cfn/.local/bin && chown -R /home/cfn 
+ENV PATH="$PATH:/home/cfn/.local/bin"
+
 USER cfn
 
 WORKDIR /home/cfn
-RUN pip3 install --no-cache-dir -U checkov cfn-lint requests --user
-ENV PATH="$PATH:/home/cfn/.local/bin"
+RUN pip3 install checkov cfn-lint requests --user
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
