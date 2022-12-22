@@ -22,8 +22,8 @@ RUN chmod 777 -R /home/cfn
 ENV PATH="$PATH:/home/cfn/.local/bin"
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /home/cfn/entrypoint.sh
+COPY entrypoint.sh /usr/local/entrypoint.sh
 RUN whoami
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/home/cfn/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/entrypoint.sh"]
