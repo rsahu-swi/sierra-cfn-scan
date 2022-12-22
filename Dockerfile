@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y  --no-install-recommends \
 RUN groupadd -r cfn && useradd --no-log-init -r -g cfn cfn
 
 USER cfn
+
 WORKDIR /home/cfn
+
+RUN mkdir /home/cfn/.local/ && mkdir /home/cfn/.local/bin
 
 RUN pip3 install --no-cache-dir -U checkov cfn-lint requests
 
