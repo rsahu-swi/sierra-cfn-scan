@@ -7,25 +7,10 @@ RUN apt-get update && apt-get install -y  --no-install-recommends \
         && gem install cfn-nag \
         && rm -rf /var/lib/apt/lists/*  
 
-# Creating user with name "cfn"
-RUN groupadd -r cfn && useradd --no-log-init -r -g cfn cfn
-
-RUN mkdir -p /home/cfn && mkdir -p /home/cfn/.local/ && mkdir -p /home/cfn/.local/bin && chown -R cfn /home/cfn && chmod 777 -R /home/cfn
-
-USER cfn
-
-WORKDIR /home/cfn
 RUN pip3 install checkov cfn-lint requests --user
-RUN whoami
-
-RUN chmod 777 -R /home/cfn
-ENV PATH="$PATH:/home/cfn/.local/bin"
-
-USER root
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /usr/local/entrypoint.sh
-RUN whoami
+COPY entrypoint.sh entrypoint.sh
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/usr/local/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
