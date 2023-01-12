@@ -20,7 +20,7 @@ runs:
     - name: Run CFN Lint
       shell: bash
       run: |
-          cfn-lint ${{ inputs.cloudformation_directory }}* -f sarif > cfn_lint.sarif
+          cfn-lint ${{ inputs.cloudformation_directory }} -f sarif > cfn_lint.sarif
          
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2.1.32
