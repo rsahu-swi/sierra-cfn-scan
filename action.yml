@@ -1,16 +1,36 @@
-name: 'sierra-cfn-scan'
-description: 'CloudFormation Static Code Analysis Tool Suite'
-author: rsahu
+name: 'cfn-scan-action'
+description: 'CloudFormation Static Code Analysis Tool Suite with cfn-nag, cfn-lint, checkov'
+author: rsahu@sierrawireless.com
 inputs:
   cloudformation_directory:
     description: 'directory within git repo to scan cloudformation templates'
     required: true
-  scanner:
-    description: 'scanner used to run security test. Options are "cfn-lint", "cfn-nag", "checkov", "all"'
-    required: true
 runs:
-  using: docker
-  image: Dockerfile
-branding:
-  icon: shield
-  color: green
+  using: 'composite'
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: cfn-lint-action
+      uses: ScottBrenner/cfn-lint-action@v2
+      with:
+        version: 0.71.1
+
+    - name: Run CFN Lint
+      continue-on-error: true
+      run: |
+          cfn-lint -t single-instance.json -b --custom-rules cfn_lint_custom_rule.txt -f sarif --output-file cfn_lint.sarif
+          cfn-lint ${{ inputs.cloudformation_directory }}* -f sarif > cfn_lint.sarif
+         
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v2.1.32
+      with:
+        sarif_file: cfn_lint.sarif  
+
+    - name: Archive the result so it can be downloaded
+      uses: actions/upload-artifact@v3
+      with:
+        name: cnf-lint-artifact
+        path: ${{ github.workspace }}/cfn_lint.sarif
+
