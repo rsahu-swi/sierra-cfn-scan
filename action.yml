@@ -18,9 +18,8 @@ runs:
         version: 0.71.1
 
     - name: Run CFN Lint
-      continue-on-error: true
+      shell: bash
       run: |
-          cfn-lint -t single-instance.json -b --custom-rules cfn_lint_custom_rule.txt -f sarif --output-file cfn_lint.sarif
           cfn-lint ${{ inputs.cloudformation_directory }}* -f sarif > cfn_lint.sarif
          
     - name: Upload result to GitHub Code Scanning
