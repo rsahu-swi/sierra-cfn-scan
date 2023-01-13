@@ -1,5 +1,5 @@
-name: 'cfn-scan-action'
-description: 'CloudFormation Static Code Analysis Tool Suite with cfn-nag, cfn-lint, checkov'
+name: 'cfn-nag-action'
+description: 'CloudFormation Static Code Analysis Tool Suite with cfn-nag'
 author: rsahu@sierrawireless.com
 inputs:
   cloudformation_directory:
@@ -7,30 +7,33 @@ inputs:
     required: true
 runs:
   using: 'composite'
-
   steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: cfn-lint-action
-      uses: ScottBrenner/cfn-lint-action@v2
-      with:
-        version: 0.71.1
-
-    - name: Run CFN Lint
+    - name: setting python venv and cfn-naf
       continue-on-error: true
       shell: bash
       run: |
-          cfn-lint ${{ inputs.cloudformation_directory }}* -f sarif > cfn_lint.sarif
-         
-    - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v2.1.32
-      with:
-        sarif_file: cfn_lint.sarif  
+          sudo apt-get upgrade
+          sudo apt-get install apt-get update && apt-get install -y  --no-install-recommends ruby  -y
+          gem install cfn-nag
 
-    - name: Archive the result so it can be downloaded
+    - name: Run CFN nag
+      continue-on-error: true
+      shell: bash
+      run: |
+          cfn_nag_scan --input-path ${{ inputs.cloudformation_directory }}
+
+    # - name: setup & Run
+    #   uses: stelligent/cfn_nag@master
+    #   with:
+    #     input_path: ${{ inputs.cloudformation_directory }}
+    #     extra_args: --fail-on-warnings
+        
+    - name: Archive output
       uses: actions/upload-artifact@v3
       with:
-        name: cnf-lint-artifact
-        path: ${{ github.workspace }}/cfn_lint.sarif
+        name: cnf-nag-artifact
+        path: ${{ github.workspace }}/cfn_nag.out
 
