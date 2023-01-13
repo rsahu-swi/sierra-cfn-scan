@@ -16,7 +16,8 @@ runs:
       shell: bash
       run: |
           sudo apt-get upgrade
-          sudo apt-get install apt-get update && apt-get install -y  --no-install-recommends ruby  -y
+          sudo apt-get update && 
+          sudo apt-get install ruby -y
           gem install cfn-nag
 
     - name: Run CFN nag
